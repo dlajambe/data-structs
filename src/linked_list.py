@@ -23,7 +23,8 @@ class SinglyLinkedList():
     def insert_front(self, d):
         if d == None:
             raise ValueError('Cannot add None to a linked list')
-
+        # The beauty of linked lists is that insertion at the front if
+        # O(1) in time complexity
         n = Node(d)
         n.next = self.head
         self.head = n
