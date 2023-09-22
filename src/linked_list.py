@@ -2,8 +2,9 @@ class Node():
     def __init__(self, d):
         self.d = d
         self.next = None
+        self.prev = None
 
-class SingleLinkedList():
+class SinglyLinkedList():
     def __init__(self):
         self.head = None
     
@@ -28,15 +29,22 @@ class SingleLinkedList():
         self.head = n
 
     def delete(self, d):
+        # Case 1 - There is one or zero nodes in the list
         if self.head == None:
             raise ValueError('Cannot delete a node from an empty linked list')
+        elif self.head.d == d:
+            self.head = None
+            return
         
+        # Case 2 - There are multiple nodes in the list
         n = self.head
         while n.next != None:
-            if n.d == d:
-                n = n.next
-                break
+            if n.next.d == d:
+                n.next = n.next.next
+                return
             n = n.next
+
+        raise ValueError('Node with value {} not found'.format(d))
 
     def __str__(self):
         if self.head == None:
@@ -52,10 +60,3 @@ class SingleLinkedList():
             n = n.next
         s.append(']')
         return ''.join(s)
-    
-my = SingleLinkedList()
-my.insert_back(4)
-my.insert_back(7)
-my.insert_front(1)
-my.delete(4)
-print(my)
